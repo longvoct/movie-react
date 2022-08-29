@@ -15,4 +15,15 @@
     max-width: 1280px;
     @apply mx-auto;
   }
+  .banner .swiper {
+    height: 100%;
+  }
+  .banner .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.35;
+  }
+  .banner .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: #3d82f4;
+    opacity: 1;
+  }
 }
