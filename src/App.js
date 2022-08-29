@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Main from "./components/layout/Main";
 import HomePage from "./pages/HomePage";
 import Banner from "./components/banner/Banner";
-import Checkbox from "./components/Checkbox";
+
 
 function App() {
   useEffect(() => {
