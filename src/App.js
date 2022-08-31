@@ -3,8 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import Main from "./components/layout/Main";
 import HomePage from "./pages/HomePage";
 import Banner from "./components/banner/Banner";
+<<<<<<< HEAD
 import MoviePage from "./pages/MoviePage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
+=======
+
+>>>>>>> fb8dd208cc2ffa5924a2d88469265ac1c626b346
 
 function App() {
   useEffect(() => {
