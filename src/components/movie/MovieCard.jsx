@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const MovieCard = (props) => {
   /**
@@ -21,6 +22,7 @@ vote_count: 2067
    */
 
   //`https://image.tmdb.org/t/p/original/${data.poster_path}`
+  const navigate = useNavigate();
   return (
     <div className="movie-card rounded-lg p-3 bg-slate-800 text-white flex flex-col">
       <div className="h-[330px] flex-0">
@@ -31,9 +33,7 @@ vote_count: 2067
             className="w-full h-[250px] object-cover rounded-lg mb-5"
           />
         </div>
-        <h3 className="text-white text-lg  font-bold mb-[30px]">
-          {props.title}
-        </h3>
+        <h3 className="text-white text-lg  font-bold mb-[30px]"></h3>
       </div>
       <div className="content flex flex-col justify-between flex-1">
         <div className="flex items-center justify-between text-sm opacity-50 font-regular mb-8">
@@ -41,7 +41,10 @@ vote_count: 2067
           <span>{props.vote_average}</span>
         </div>
         <div className="">
-          <button className="py-3 px-6 rounded-lg capitalize bg-primary w-full ">
+          <button
+            onClick={() => navigate(`/movie/${props.id}`)}
+            className="py-3 px-6 rounded-lg capitalize bg-primary w-full "
+          >
             Watch now
           </button>
         </div>

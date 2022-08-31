@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import Main from "./components/layout/Main";
 import HomePage from "./pages/HomePage";
 import Banner from "./components/banner/Banner";
-import Checkbox from "./components/Checkbox";
+import MoviePage from "./pages/MoviePage";
+import MovieDetailsPage from "./pages/MovieDetailsPage";
 
 function App() {
   useEffect(() => {
@@ -22,10 +23,8 @@ function App() {
               </>
             }
           ></Route>
-          <Route
-            path="/movies"
-            element={<div>This is movies pages</div>}
-          ></Route>
+          <Route path="/movies" element={<MoviePage />}></Route>
+          <Route path="/movie/:movieId" element={<MovieDetailsPage />}></Route>
         </Route>
         <Route
           path="*"

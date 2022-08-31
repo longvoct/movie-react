@@ -57,6 +57,7 @@ const MovieList = ({ type = "now_playing" }) => {
                   title={item.title}
                   release_date={item.release_date}
                   vote_average={item.vote_average}
+                  id={item.id}
                 ></MovieCard>
               </SwiperSlide>
             );
