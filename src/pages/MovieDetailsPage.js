@@ -1,7 +1,9 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
+import { MovieCard } from "../components/movie/MovieCard";
 import { apiKey, fetcher } from "../config";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 //https://api.themoviedb.org/3/movie/{movie_id)?api_key=dc6c85e0bac948cf596a5a8594683521
 //"https://api.themoviedb.org/3/movie/now_playing?api_key=dc6c85e0bac948cf596a5a8594683521
@@ -9,7 +11,7 @@ import { apiKey, fetcher } from "../config";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`,
     fetcher
   );
@@ -52,13 +54,14 @@ const MovieDetailsPage = () => {
       </p>
       <MovieCredits></MovieCredits>
       <MovieVideos></MovieVideos>
+      <MovieSimilar></MovieSimilar>
     </div>
   );
 };
 
 function MovieCredits() {
   const { movieId } = useParams();
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`,
     fetcher
   );
@@ -93,14 +96,89 @@ function MovieCredits() {
 
 function MovieVideos() {
   const { movieId } = useParams();
-  const { data, error } = useSWR(
+  const { data } = useSWR(
     `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`,
     fetcher
   );
   if (!data) return null;
-  const { cast } = data;
-  if (!cast || cast.length <= 0) return null;
-  return <div></div>;
+
+  const { results } = data;
+  console.log("results: ", results);
+  if (!results || results.length <= 0) return null;
+
+  return (
+    <div className="py-10">
+      <div className="flex flex-col gap-5">
+        {results &&
+          results.slice(0, 2).map((item) => (
+            <div key={item.id}>
+              <h3 className="mb-5 text-xl font-medium p-3 bg-secondary inline-block">
+                {item.name}
+              </h3>
+              <div className="w-full aspect-video">
+                <iframe
+                  width="853"
+                  height="480"
+                  src={`https://www.youtube.com/embed/${item.key}`}
+                  title={`${item.type}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full object-fill"
+                ></iframe>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+function MovieSimilar() {
+  const { movieId } = useParams();
+  const { data } = useSWR(
+    `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`,
+    fetcher
+  );
+  if (!data) return null;
+  const movies = data?.results || [];
+  return (
+    <div className="py-10">
+      <h2 className="text-3xl font-medium mb-10">Similar Video</h2>
+      <div className="movie-list select-none">
+        <Swiper
+          slidesPerView={4}
+          // centeredSlides={true}
+          spaceBetween={30}
+          grabCursor={true}
+          // pagination={{
+          //   clickable: true,
+          // }}
+          className="mySwiper"
+        >
+          {movies &&
+            movies
+              .filter((item, index) => {
+                return item.backdrop_path !== null;
+              })
+              .map((item) => {
+                return (
+                  <SwiperSlide key={item.id}>
+                    <MovieCard
+                      name={item.title}
+                      backdrop_path={item.backdrop_path}
+                      title={item.title}
+                      release_date={item.release_date}
+                      vote_average={item.vote_average}
+                      id={item.id}
+                    ></MovieCard>
+                  </SwiperSlide>
+                );
+              })}
+        </Swiper>
+      </div>
+    </div>
+  );
 }
 
 export default MovieDetailsPage;

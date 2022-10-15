@@ -53,6 +53,7 @@ const MovieList = ({ type = "now_playing" }) => {
             return (
               <SwiperSlide key={item.id}>
                 <MovieCard
+                  name={item.title}
                   backdrop_path={item.backdrop_path}
                   title={item.title}
                   release_date={item.release_date}

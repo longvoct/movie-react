@@ -33,7 +33,9 @@ vote_count: 2067
             className="w-full h-[250px] object-cover rounded-lg mb-5"
           />
         </div>
-        <h3 className="text-white text-lg  font-bold mb-[30px]"></h3>
+        <h3 className="text-white text-lg  font-bold mb-[30px]">
+          {props.name}
+        </h3>
       </div>
       <div className="content flex flex-col justify-between flex-1">
         <div className="flex items-center justify-between text-sm opacity-50 font-regular mb-8">
